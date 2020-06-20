@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="../../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../../css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../../images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../../images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../../images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="../../../../../images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="动态规划," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="1.最长公共子序列（1）【POJ 1458 Common Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc 与 abfcab 都有(按从左往右的顺序)abcb。1dp[i][j]表示在a[i]和b[j]之前共有的元素的个数  状态转移方程：for循环两重遍历后： 12if(a[i-1] &#x3D;&#x3D; b[j-1]) dp[i][j] &#x3D; dp[i-1][j-1] + 1">
+<meta property="og:type" content="article">
+<meta property="og:title" content="dynamic programming（dp）">
+<meta property="og:url" content="http://yoursite.com/2020/06/20/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/index.html">
+<meta property="og:site_name" content="SXY&#39;s blog">
+<meta property="og:description" content="1.最长公共子序列（1）【POJ 1458 Common Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc 与 abfcab 都有(按从左往右的顺序)abcb。1dp[i][j]表示在a[i]和b[j]之前共有的元素的个数  状态转移方程：for循环两重遍历后： 12if(a[i-1] &#x3D;&#x3D; b[j-1]) dp[i][j] &#x3D; dp[i-1][j-1] + 1">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/714429/201511/714429-20151104154045461-1769975329.png">
+<meta property="article:published_time" content="2020-06-20T05:03:12.971Z">
+<meta property="article:modified_time" content="2020-06-18T03:10:58.242Z">
+<meta property="article:author" content="SXY">
+<meta property="article:tag" content="动态规划">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/714429/201511/714429-20151104154045461-1769975329.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/20/动态规划/动态规划/"/>
+
+
+
+
+
+  <title>dynamic programming（dp） | SXY's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SXY's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SXY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SXY's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">dynamic programming（dp）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-20T13:03:12+08:00">
+                2020-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../../categories/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" itemprop="url" rel="index">
+                    <span itemprop="name">动态规划</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="1-最长公共子序列"><a href="#1-最长公共子序列" class="headerlink" title="1.最长公共子序列"></a>1.最长公共子序列</h2><h4 id="（1）【POJ-1458-Common-Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc-与-abfcab-都有-按从左往右的顺序-abcb。"><a href="#（1）【POJ-1458-Common-Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc-与-abfcab-都有-按从左往右的顺序-abcb。" class="headerlink" title="（1）【POJ 1458 Common Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc 与 abfcab 都有(按从左往右的顺序)abcb。"></a>（1）【<a href="https://vjudge.net/problem/POJ-1458" target="_blank" rel="noopener"><strong>POJ 1458</strong></a> Common Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc 与 abfcab 都有(按从左往右的顺序)abcb。</h4><figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j]表示在a[i]和b[j]之前共有的元素的个数</span><br></pre></td></tr></table></figure>
+
+<p>状态转移方程：for循环两重遍历后：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(a[i<span class="number">-1</span>] == b[j<span class="number">-1</span>]) dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line"><span class="keyword">else</span> dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j], dp[i][j<span class="number">-1</span>]);</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;string&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">500</span>;</span><br><span class="line"><span class="keyword">int</span> dp[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">char</span> a[maxn], b[maxn];</span><br><span class="line">    <span class="keyword">while</span>( ~<span class="built_in">scanf</span>(<span class="string">"%s%s"</span>, a, b) ) &#123;</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span> dp);</span><br><span class="line">        <span class="keyword">int</span> x = <span class="built_in">strlen</span>(a), y = <span class="built_in">strlen</span>(b);</span><br><span class="line">        <span class="keyword">for</span>( <span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= x; i++ ) &#123;</span><br><span class="line">            <span class="keyword">for</span>( <span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= y; j++ ) &#123;</span><br><span class="line">                <span class="keyword">if</span>(a[i<span class="number">-1</span>] == b[j<span class="number">-1</span>]) dp[i][j] = dp[i<span class="number">-1</span>][j<span class="number">-1</span>] + <span class="number">1</span>;</span><br><span class="line">                <span class="keyword">else</span> dp[i][j] = <span class="built_in">max</span>(dp[i<span class="number">-1</span>][j], dp[i][j<span class="number">-1</span>]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; dp[x][y] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="2-单调递增序列问题"><a href="#2-单调递增序列问题" class="headerlink" title="2.单调递增序列问题"></a>2.单调递增序列问题</h2><h4 id="1-求单调递增最长序列【POJ-2533-Longest-Ordered-Subssequence】"><a href="#1-求单调递增最长序列【POJ-2533-Longest-Ordered-Subssequence】" class="headerlink" title="(1)求单调递增最长序列【POJ 2533 Longest Ordered Subssequence】"></a>(1)求单调递增最长序列【<a href="https://vjudge.net/problem/POJ-2533" target="_blank" rel="noopener">POJ 2533</a> Longest Ordered Subssequence】</h4><p>如：1 7 3 5 9 4 8 这个序列的单调递增序列最长有4个元素， 其中一个序列是1 3 5 8</p>
+<p>状态转移方程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>);</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1006</span>;</span><br><span class="line"><span class="keyword">int</span> dp[MAXN];</span><br><span class="line"><span class="keyword">int</span> val[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;val[i]);</span><br><span class="line">    <span class="keyword">int</span> maxn = <span class="number">-1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        dp[i] = <span class="number">1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">            <span class="keyword">if</span>(val[i] &gt; val[j]) dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + <span class="number">1</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        maxn = <span class="built_in">max</span>(dp[i], maxn);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, maxn);</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="2-求单调递增最长序列【HDU-1087-Super-Jumping】"><a href="#2-求单调递增最长序列【HDU-1087-Super-Jumping】" class="headerlink" title="(2)求单调递增最长序列【HDU 1087 Super Jumping】"></a>(2)求单调递增最长序列【<a href="https://vjudge.net/problem/HDU-1087" target="_blank" rel="noopener">HDU 1087</a> Super Jumping】</h4><p>求单调递增且所有元素之和最大的子序列，答案要求输出最大和，该子序列的开头和结尾元素必须是父序列的最小值和最大值</p>
+<p>如：1 3 2 输出 4</p>
+<p>状态转移方程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + val[i]);</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAXN = <span class="number">1e3</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> dp[MAXN];</span><br><span class="line"><span class="keyword">int</span> val[MAXN];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), n) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;val[i]);</span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span> dp);</span><br><span class="line">        <span class="keyword">int</span> maxn = <span class="number">-1</span>;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            dp[i] = val[i];</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt;= i - <span class="number">1</span>; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(val[i] &gt; val[j]) dp[i] = <span class="built_in">max</span>(dp[i], dp[j] + val[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            maxn = <span class="built_in">max</span>(dp[i], maxn);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, maxn);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="3-求单调递增最长序列【POJ-3616-Milking-Time】"><a href="#3-求单调递增最长序列【POJ-3616-Milking-Time】" class="headerlink" title="(3)求单调递增最长序列【POJ 3616 Milking Time】"></a>(3)求单调递增最长序列【<a href="https://vjudge.net/problem/POJ-3616" target="_blank" rel="noopener">POJ 3616</a> Milking Time】</h4><p>类似于求单调递增最长子序列的问题，该题中下一次挤奶的开始时间必须大于等于上一次挤奶的结束时间+r，求出最大的挤奶量。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">1002</span>];</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">FJ</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> st;</span><br><span class="line">    <span class="keyword">int</span> ed;</span><br><span class="line">    <span class="keyword">int</span> liq;</span><br><span class="line">    <span class="keyword">bool</span> <span class="keyword">operator</span> &lt; (<span class="keyword">const</span> FJ&amp; a) <span class="keyword">const</span> &#123;</span><br><span class="line">        <span class="keyword">if</span>(ed != a.ed) <span class="keyword">return</span> ed &lt; a.ed;</span><br><span class="line">        <span class="keyword">else</span> <span class="keyword">return</span> st &gt; a.st;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;fj[<span class="number">1002</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, m, r;  <span class="comment">//奶牛产奶的总时长，FJ的可挤奶间歇数，奶牛每次挤奶后的休息时间</span></span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;n, &amp;m, &amp;r);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) <span class="built_in">scanf</span>(<span class="string">"%d %d %d"</span>, &amp;fj[i].st, &amp;fj[i].ed, &amp;fj[i].liq);</span><br><span class="line">    sort(fj, fj + m);</span><br><span class="line">    <span class="keyword">int</span> maxn = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; m; i++) &#123;</span><br><span class="line">        dp[i] = fj[i].liq;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = i; j &gt;= <span class="number">0</span>; j--) &#123;</span><br><span class="line">            <span class="keyword">if</span>(fj[j].ed + r &lt;= fj[i].st) dp[i] = <span class="built_in">max</span>(dp[i], fj[i].liq + dp[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        maxn = <span class="built_in">max</span>(maxn, dp[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, maxn);</span><br><span class="line">    <span class="comment">//system("pause");</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="（4）求构造一个单调递增-减序列的最小代价【POJ-3666-Making-the-Grade】"><a href="#（4）求构造一个单调递增-减序列的最小代价【POJ-3666-Making-the-Grade】" class="headerlink" title="（4）求构造一个单调递增/减序列的最小代价【POJ 3666 Making the Grade】"></a>（4）求构造一个单调递增/减序列的最小代价【<a href="https://vjudge.net/problem/POJ-3666" target="_blank" rel="noopener">POJ 3666</a> Making the Grade】</h4><p>类型：dp+离散化</p>
+<p>首先这道题给出的数据范围到亿，是非常大的，所以我们不能直接进行遍历，需要对其进行数据离散化处理，而由题意易知每个单调递增序列的最大值一定是序列中的某个值，这样就可以对数据进行离散化处理，不是序列中的数就可以不对其进行遍历。构造单调递增/减序列的最小代价是等价的，二者互为逆向，所以这道题只需要写出一种情况就可以。</p>
+<ul>
+<li><p>先考虑构造一个二维数组dp的情况：a[n-1]储存的是原始数据的数组，b[n-1]是对a[n-1]进行从小到大排序之后的数组，dp[i][j]表示序列前i个数当最大值为b[j]时的数组，那么就可以得到状态转移方程：dp[i][j] = abs(a[i] - b[j]) + dp[i-1][k]  (k &lt;= j)</p>
+<p>用代码阐释：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">ll solveup</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) dp[<span class="number">0</span>][i] = <span class="built_in">abs</span>(a[<span class="number">0</span>]-b[i]);</span><br><span class="line">    ll v;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v = dp[i<span class="number">-1</span>][<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            v = <span class="built_in">min</span>(v, dp[i<span class="number">-1</span>][j]);</span><br><span class="line">            dp[i][j] = <span class="built_in">abs</span>(a[i]-b[j]) + v;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    v = dp[n<span class="number">-1</span>][<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) v = <span class="built_in">min</span>(v, dp[n<span class="number">-1</span>][i]);</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于二维数组占用内存太大，下面再考虑构造一维滚动数组的情况：a,b数组如上所述，建立一个dp[n-1]的数组，表示当前轮次（序列为前多少个数）的dp[j]是当序列里最大的数为b[j]时所付出的最小代价。那么现在得到的状态转移方程为：dp[j] = dp[k] + abs(a[i]-b[j])  (k &lt;= j)</p>
+<p>用具体代码阐释：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">ll <span class="title">solveup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) dp[i] = <span class="built_in">abs</span>(a[<span class="number">0</span>]-b[i]);</span><br><span class="line">    ll v;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            v = <span class="built_in">min</span>(v, dp[j]);</span><br><span class="line">            dp[j] = v + <span class="built_in">abs</span>(a[i]-b[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    v = dp[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) v = <span class="built_in">min</span>(v, dp[i]);</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>完整代码：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> ll;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">2020</span>;</span><br><span class="line">ll a[maxn];</span><br><span class="line">ll b[maxn];</span><br><span class="line">ll dp[maxn];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function">ll <span class="title">solveup</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    sort(b, b+n);</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) dp[i] = <span class="built_in">abs</span>(a[<span class="number">0</span>] - b[i]);</span><br><span class="line">    <span class="keyword">register</span> ll v;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        v = dp[<span class="number">0</span>];</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            v = <span class="built_in">min</span>(v, dp[j]);</span><br><span class="line">            dp[j] = v + <span class="built_in">abs</span>(a[i] - b[j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    v = dp[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) v = <span class="built_in">min</span>(v, dp[i]);</span><br><span class="line">    <span class="keyword">return</span> v;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="keyword">int</span> x;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;x);</span><br><span class="line">        a[i] = b[i] = x;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, solveup());</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ul>
+<h2 id="3-区间dp"><a href="#3-区间dp" class="headerlink" title="3.区间dp"></a>3.区间dp</h2><p>区间DP，顾名思义是在区间上DP，它的主要思想就是先在小区间进行DP得到最优解，然后再利用小区间的最优解合并求大区间的最优解。</p>
+<h4 id="1-【POJ-3186-Treats-for-the-Cows】"><a href="#1-【POJ-3186-Treats-for-the-Cows】" class="headerlink" title="(1)【POJ 3186 Treats for the Cows】"></a>(1)【<a href="https://vjudge.net/problem/POJ-3186" target="_blank" rel="noopener">POJ 3186</a> Treats for the Cows】</h4><p>给出的一系列的数字，可以看成一个双向队列，每次只能从队首或者队尾出队，第n个出队就拿这个数乘以n，最后将和加起来，求最大和</p>
+<p>状态转移方程：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[i][j] = <span class="built_in">max</span>(dp[i+<span class="number">1</span>][j]+a[i]*(n-len), dp[i][j<span class="number">-1</span>]+a[j]*(n-len));</span><br></pre></td></tr></table></figure>
+
+<p>完整代码：(先枚举区间长度，再枚举起点，从而确定终点)</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">int</span> val[<span class="number">2020</span>];</span><br><span class="line"><span class="keyword">int</span> dp[<span class="number">2020</span>][<span class="number">2020</span>];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n;</span><br><span class="line">    <span class="built_in">cin</span> &gt;&gt; n;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;</span><br><span class="line">        <span class="built_in">cin</span> &gt;&gt; val[i];</span><br><span class="line">        dp[i][i] = val[i] * n;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> len = <span class="number">1</span>; len &lt; n; ++len) <span class="comment">//枚举区间长度</span></span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) &#123;<span class="comment">//枚举起点</span></span><br><span class="line">            <span class="keyword">int</span> j = i + len; <span class="comment">//j为枚举终点</span></span><br><span class="line">            dp[i][j] = <span class="built_in">max</span>(dp[i][j<span class="number">-1</span>] + val[j] * (n - len), dp[i+<span class="number">1</span>][j] + val[i] * (n - len));</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="built_in">cout</span> &lt;&lt; dp[<span class="number">1</span>][n] &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="4-记忆化搜索-dp"><a href="#4-记忆化搜索-dp" class="headerlink" title="4.记忆化搜索+dp"></a>4.记忆化搜索+dp</h2><p>在dfs搜索的时候加入dp进行节点记忆优化，以防超时</p>
+<h4 id="（1）【HDU-1078-Fatmouse-and-Cheese"><a href="#（1）【HDU-1078-Fatmouse-and-Cheese" class="headerlink" title="（1）【HDU 1078 Fatmouse and Cheese]"></a>（1）【<a href="https://vjudge.net/problem/HDU-1078" target="_blank" rel="noopener">HDU 1078</a> Fatmouse and Cheese]</h4><p>记忆化搜索，下一步只能走到比上一步点数更大的点，每一步只能水平或者垂直走，走的步数有限制，为k， 给出一个大小为nxn的点数图</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1002</span>;</span><br><span class="line"><span class="keyword">int</span> dp[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> dir[<span class="number">4</span>][<span class="number">2</span>] = &#123;&#123;<span class="number">-1</span>,<span class="number">0</span>&#125;, &#123;<span class="number">1</span>,<span class="number">0</span>&#125;, &#123;<span class="number">0</span>,<span class="number">-1</span>&#125;, &#123;<span class="number">0</span>,<span class="number">1</span>&#125;&#125;;</span><br><span class="line"><span class="keyword">int</span> mp[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> n, k;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">dfs</span><span class="params">(<span class="keyword">int</span> x, <span class="keyword">int</span> y)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(dp[x][y]) <span class="keyword">return</span> dp[x][y];</span><br><span class="line">    <span class="keyword">int</span> sum = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; <span class="number">4</span>; i++) &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= k; j++) &#123;</span><br><span class="line">            <span class="keyword">int</span> x1 = x + j * dir[i][<span class="number">0</span>];</span><br><span class="line">            <span class="keyword">int</span> y1 = y + j * dir[i][<span class="number">1</span>];</span><br><span class="line">            <span class="keyword">if</span>(x1 &lt; <span class="number">0</span> || x1 &gt;= n || y1 &lt; <span class="number">0</span> || y1 &gt;= n) <span class="keyword">break</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span>(mp[x1][y1] &gt; mp[x][y]) sum = <span class="built_in">max</span>(sum, dfs(x1, y1));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> dp[x][y] = sum + mp[x][y];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>,&amp;n,&amp;k))&#123;</span><br><span class="line">		<span class="keyword">if</span>(n==<span class="number">-1</span>&amp;&amp;k==<span class="number">-1</span>) <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;n;i++) <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;n;j++) <span class="built_in">scanf</span>(<span class="string">"%d"</span>,&amp;mp[i][j]);</span><br><span class="line">		<span class="built_in">memset</span>(dp,<span class="number">0</span>,<span class="keyword">sizeof</span>(dp));</span><br><span class="line">		<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, dfs(<span class="number">0</span>,<span class="number">0</span>));   </span><br><span class="line">	&#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="5-最大对称子图"><a href="#5-最大对称子图" class="headerlink" title="5.最大对称子图"></a>5.最大对称子图</h2><ul>
+<li><p>给你一个n*n的字符矩阵，从中选出一个最大的子矩阵（m*m）满足关于斜对角线（左下角到右上角）对称，求出这个矩阵的大小m；</p>
+</li>
+<li><p>我们可以用dp[i][j]表示当前位置到右上角这个子矩阵所能表示对称的矩阵最大值；</p>
+</li>
+</ul>
+<h4 id="1-HDU-2859-Phalanx"><a href="#1-HDU-2859-Phalanx" class="headerlink" title="(1) [HDU 2859 Phalanx]"></a>(1) [<a href="https://vjudge.net/problem/HDU-2859" target="_blank" rel="noopener">HDU 2859</a> Phalanx]</h4><p><img src="https://images2015.cnblogs.com/blog/714429/201511/714429-20151104154045461-1769975329.png" alt="img"></p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">状态转移方程：dp[i][j] = t &gt; dp[i<span class="number">-1</span>][j+<span class="number">1</span>] ? dp[i<span class="number">-1</span>][j+<span class="number">1</span>] + <span class="number">1</span> : t;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">1006</span>;</span><br><span class="line"><span class="keyword">int</span> dp[maxn][maxn];</span><br><span class="line"><span class="keyword">char</span> mp[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n), n) &#123;        </span><br><span class="line">        <span class="built_in">memset</span>(dp, <span class="number">0</span>, <span class="keyword">sizeof</span>(dp));</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) </span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%s"</span>, mp[i]);</span><br><span class="line">        <span class="keyword">int</span> maximum = <span class="number">1</span>;            </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; n; i++) &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">0</span>; j &lt; n; j++) &#123;</span><br><span class="line">                <span class="keyword">if</span>(!i) &#123;dp[i][j] = <span class="number">1</span>; <span class="keyword">continue</span>;&#125;</span><br><span class="line">                <span class="keyword">int</span> x = j, y = i;</span><br><span class="line">                <span class="keyword">while</span>(x &lt; n &amp;&amp; y &gt;= <span class="number">0</span> &amp;&amp; mp[i][x] == mp[y][j])</span><br><span class="line">                &#123;++x; --y;&#125;</span><br><span class="line">                <span class="keyword">int</span> t = x - j; </span><br><span class="line">                dp[i][j] = t &gt; dp[i<span class="number">-1</span>][j+<span class="number">1</span>] ? dp[i<span class="number">-1</span>][j+<span class="number">1</span>] + <span class="number">1</span> : t;  <span class="comment">//状态转移方程</span></span><br><span class="line">                maximum = <span class="built_in">max</span>(maximum, dp[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; </span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, maximum);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//system("pause");</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>dp[i][j]在markdown语言想敲出来要在两个方括号中间加一个转义符&#39;\‘, 才能打出来：][</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../../tags/%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92/" rel="tag"># 动态规划</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../Max-Sum-Plus-Plus%EF%BC%88%E5%8A%A8%E6%80%81%E8%A7%84%E5%88%92%EF%BC%89/" rel="next" title="Max Sum Plus Plus（动态规划）">
+                <i class="fa fa-chevron-left"></i> Max Sum Plus Plus（动态规划）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../%E5%8C%B9%E9%85%8D%E9%97%AE%E9%A2%98/Courses(%E6%B1%82%E6%9C%80%E5%A4%A7%E5%8C%B9%E9%85%8D%E6%95%B0)/" rel="prev" title="Courses(二分图最大匹配)">
+                Courses(二分图最大匹配) <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">SXY</p>
+              <p class="site-description motion-element" itemprop="description">hh</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="../../../../../archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-最长公共子序列"><span class="nav-number">1.</span> <span class="nav-text">1.最长公共子序列</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）【POJ-1458-Common-Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc-与-abfcab-都有-按从左往右的顺序-abcb。"><span class="nav-number">1.0.1.</span> <span class="nav-text">（1）【POJ 1458 Common Subsequence】求两个字符串从左往右含有最多公共元素的个数，如：abcfbc 与 abfcab 都有(按从左往右的顺序)abcb。</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-单调递增序列问题"><span class="nav-number">2.</span> <span class="nav-text">2.单调递增序列问题</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-求单调递增最长序列【POJ-2533-Longest-Ordered-Subssequence】"><span class="nav-number">2.0.1.</span> <span class="nav-text">(1)求单调递增最长序列【POJ 2533 Longest Ordered Subssequence】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-求单调递增最长序列【HDU-1087-Super-Jumping】"><span class="nav-number">2.0.2.</span> <span class="nav-text">(2)求单调递增最长序列【HDU 1087 Super Jumping】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-求单调递增最长序列【POJ-3616-Milking-Time】"><span class="nav-number">2.0.3.</span> <span class="nav-text">(3)求单调递增最长序列【POJ 3616 Milking Time】</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#（4）求构造一个单调递增-减序列的最小代价【POJ-3666-Making-the-Grade】"><span class="nav-number">2.0.4.</span> <span class="nav-text">（4）求构造一个单调递增&#x2F;减序列的最小代价【POJ 3666 Making the Grade】</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-区间dp"><span class="nav-number">3.</span> <span class="nav-text">3.区间dp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-【POJ-3186-Treats-for-the-Cows】"><span class="nav-number">3.0.1.</span> <span class="nav-text">(1)【POJ 3186 Treats for the Cows】</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-记忆化搜索-dp"><span class="nav-number">4.</span> <span class="nav-text">4.记忆化搜索+dp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#（1）【HDU-1078-Fatmouse-and-Cheese"><span class="nav-number">4.0.1.</span> <span class="nav-text">（1）【HDU 1078 Fatmouse and Cheese]</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-最大对称子图"><span class="nav-number">5.</span> <span class="nav-text">5.最大对称子图</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-HDU-2859-Phalanx"><span class="nav-number">5.0.1.</span> <span class="nav-text">(1) [HDU 2859 Phalanx]</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SXY</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../../js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="../../../../../js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="../../../../../js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../../js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

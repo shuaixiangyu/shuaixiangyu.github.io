@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="../../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../../css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../../images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../../images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../../images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="../../../../../images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="前缀和与差分," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="题目： 解题报告：这道题可以说就是一道二维前缀和的板子题，值得一提的是有种奇技淫巧、、 对比一下，我的：  奇技淫巧式：  由此可见奇技淫巧是多么省时间 my 二维前缀和的做法：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950&#x2F;*测试样例：input:40 -2 -">
+<meta property="og:type" content="article">
+<meta property="og:title" content="最大加权矩形（二维前缀和+奇技淫巧）">
+<meta property="og:url" content="http://yoursite.com/2020/06/20/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/%E6%9C%80%E5%A4%A7%E5%8A%A0%E6%9D%83%E7%9F%A9%E5%BD%A2%EF%BC%88%E4%BA%8C%E7%BB%B4%E5%89%8D%E7%BC%80%E5%92%8C+%E5%A5%87%E6%8A%80%E6%B7%AB%E5%B7%A7%EF%BC%89/index.html">
+<meta property="og:site_name" content="SXY&#39;s blog">
+<meta property="og:description" content="题目： 解题报告：这道题可以说就是一道二维前缀和的板子题，值得一提的是有种奇技淫巧、、 对比一下，我的：  奇技淫巧式：  由此可见奇技淫巧是多么省时间 my 二维前缀和的做法：1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950&#x2F;*测试样例：input:40 -2 -">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://chuantu.xyz/t6/728/1586601125x1700468773.jpg">
+<meta property="og:image" content="http://chuantu.xyz/t6/728/1586601667x2099719707.jpg">
+<meta property="og:image" content="http://chuantu.xyz/t6/728/1586601580x2099719707.jpg">
+<meta property="article:published_time" content="2020-06-20T05:03:12.899Z">
+<meta property="article:modified_time" content="2020-06-18T03:17:15.281Z">
+<meta property="article:author" content="SXY">
+<meta property="article:tag" content="前缀和与差分">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://chuantu.xyz/t6/728/1586601125x1700468773.jpg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/20/前缀和与差分/最大加权矩形（二维前缀和+奇技淫巧）/"/>
+
+
+
+
+
+  <title>最大加权矩形（二维前缀和+奇技淫巧） | SXY's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SXY's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SXY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SXY's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">最大加权矩形（二维前缀和+奇技淫巧）</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-20T13:03:12+08:00">
+                2020-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../../categories/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/" itemprop="url" rel="index">
+                    <span itemprop="name">前缀和与差分</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="题目："><a href="#题目：" class="headerlink" title="题目："></a>题目：</h4><p><img src="http://chuantu.xyz/t6/728/1586601125x1700468773.jpg" alt=""></p>
+<h4 id="解题报告："><a href="#解题报告：" class="headerlink" title="解题报告："></a>解题报告：</h4><p>这道题可以说就是一道二维前缀和的板子题，值得一提的是有种奇技淫巧、、</p>
+<p>对比一下，我的：</p>
+<p><img src="http://chuantu.xyz/t6/728/1586601667x2099719707.jpg" alt=""></p>
+<p>奇技淫巧式：</p>
+<p><img src="http://chuantu.xyz/t6/728/1586601580x2099719707.jpg" alt=""></p>
+<p>由此可见奇技淫巧是多么省时间</p>
+<h5 id="my-二维前缀和的做法："><a href="#my-二维前缀和的做法：" class="headerlink" title="my 二维前缀和的做法："></a>my 二维前缀和的做法：</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/*测试样例：</span></span><br><span class="line"><span class="comment">input:</span></span><br><span class="line"><span class="comment">4</span></span><br><span class="line"><span class="comment">0 -2 -7 0</span></span><br><span class="line"><span class="comment"> 9 2 -6 2</span></span><br><span class="line"><span class="comment">-4 1 -4  1 </span></span><br><span class="line"><span class="comment">-1 8  0 -2</span></span><br><span class="line"><span class="comment"></span></span><br><span class="line"><span class="comment">Output:</span></span><br><span class="line"><span class="comment">15</span></span><br><span class="line"><span class="comment">*/</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;algorithm&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdlib&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">126</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">int</span> sum[maxn][maxn];</span><br><span class="line"></span><br><span class="line"><span class="comment">//(1)求二维数组前缀和：sum[i][j] = </span></span><br><span class="line"><span class="comment">//sum[i-1][j] + sum[i][j-1] - sum[i-1][j-1];</span></span><br><span class="line"><span class="comment">//(2)用前缀数组分别以(x1,y1)(x2,y2)为顶点的矩形的和：</span></span><br><span class="line"><span class="comment">//sum[x2][y2] - sum[x2][y1-1] - sum[x1-1][y2] + sum[x1-1][y1-1];</span></span><br><span class="line"><span class="comment">//(3)差分数组只有当需要对原数组的数据进行更改的时候才会用到</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> n, x, temp;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    <span class="built_in">memset</span>(sum, <span class="number">0</span>, <span class="keyword">sizeof</span>(sum));</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i) </span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;sum[i][j]);</span><br><span class="line">            sum[i][j] += sum[i<span class="number">-1</span>][j]+sum[i][j<span class="number">-1</span>]-sum[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">        &#125;</span><br><span class="line">    <span class="keyword">int</span> maxn = -inf;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= n; ++i)</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j = <span class="number">1</span>; j &lt;= n; ++j) <span class="comment">//以(i,j)为左上顶点，(p,q)为右下顶点枚举</span></span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> p = i; p &lt;= n; ++p)</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> q = j; q &lt;= n; ++q) &#123;</span><br><span class="line">                    <span class="comment">//temp是以(i,j)为左上顶点，(p,q)为右下顶点的矩形大小</span></span><br><span class="line">                    temp = sum[p][q]-sum[i<span class="number">-1</span>][q]-sum[p][j<span class="number">-1</span>]+sum[i<span class="number">-1</span>][j<span class="number">-1</span>];</span><br><span class="line">                    maxn = <span class="built_in">max</span>(maxn, temp);</span><br><span class="line">                &#125;</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, maxn);</span><br><span class="line">    system(<span class="string">"pause"</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="奇技淫巧式做法："><a href="#奇技淫巧式做法：" class="headerlink" title="奇技淫巧式做法："></a>奇技淫巧式做法：</h4><blockquote>
+<p>该题算是P1115 最大子段和的一个升级版，其实思想差不多，都是DP，只不过该题需要先进行一个矩阵压缩，即二维变一维。</p>
+<p><strong>矩阵压缩：</strong></p>
+<p>假设有一个矩阵：</p>
+<p>-5 6 4</p>
+<p>1 -2 6</p>
+<p>2 1 -3</p>
+<p>如何对它进行压缩呢，其实不难，这边我做一个类比，如果我们把一行看做一个数，这里看做三个数a,b,c,那么将这三个相邻数的进行不同的组合，将这个新的组合视为一个新的数，这就是进行压缩处理，例如a,b,c可以组合为{[a],[ab],[abc],[b],[bc],[c]}，而矩阵压缩也类似。</p>
+<p>先设置一个变量max用于保存压缩后的一维数组的最大子序列和。</p>
+<p>第一次我们取第一行：</p>
+<p>-5 6 4</p>
+<p>则其最大子序列和为10，max=10。</p>
+<p>第二次取第一二行：</p>
+<p>-5 6 4</p>
+<p>1 -2 6</p>
+<p>注意现在开始是矩阵压缩的精髓，我们将每一列的数进行相加，将多行变为一行。</p>
+<p>第一列：-5+1=-4</p>
+<p>第二列：6+(-2)=4</p>
+<p>第三列：4+6=10</p>
+<p>所以压缩后的一维数组为：</p>
+<p>-4 4 10</p>
+<p>则其最大子序列和为14，max=14。</p>
+<p>第三次取第一二三行：</p>
+<p>-5 6 4</p>
+<p>1 -2 6</p>
+<p>2 1 -3</p>
+<p>对每一列进行压缩：</p>
+<p>第一列：-5+1+2=-2</p>
+<p>第二列：6+(-2)+1=5</p>
+<p>第三列：4+6+(-3)=7</p>
+<p>所以压缩后的一维数组为：</p>
+<p>-2 5 7</p>
+<p>则其最大子序列和为12，max=14。</p>
+<p>第四次取第二行：</p>
+<p>1 -2 6</p>
+<p>则其最大子序列和为6，max=14。</p>
+<p>第五次取第二三行：</p>
+<p>1 -2 6</p>
+<p>2 1 -3</p>
+<p>对每一列进行压缩：</p>
+<p>第一列：1+2=3</p>
+<p>第二列：-2+1=-1</p>
+<p>第三列：6+(-3)=3</p>
+<p>所以压缩后的一维数组为：</p>
+<p>3 -1 3</p>
+<p>则其最大子序列和为5，max=14。</p>
+<p>第六次取第三行：</p>
+<p>2 1 -3</p>
+<p>则其最大子序列和为3，max=14。</p>
+<p>最后求得这个矩阵最大的子矩阵和为14</p>
+<p>也就是第一二行的三四列</p>
+<p>6 4</p>
+<p>-2 6</p>
+</blockquote>
+<h5 id="代码："><a href="#代码：" class="headerlink" title="代码："></a>代码：</h5><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;bits/stdc++.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> infinitesimal  -2100000000</span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">long</span> <span class="keyword">long</span> <span class="keyword">int</span> lli;</span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> *  Created with IntelliJ Clion.</span></span><br><span class="line"><span class="comment"> *  @author  wanyu</span></span><br><span class="line"><span class="comment"> *  @Date: 2018-04-24</span></span><br><span class="line"><span class="comment"> *  @Time: 08:43</span></span><br><span class="line"><span class="comment"> *  To change this template use File | Settings | File Templates.</span></span><br><span class="line"><span class="comment"> * </span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> mset(t, x) memset(t,x,sizeof(t))</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> loop(a, b, c) for(int a=b;a&lt;=c;a++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> loop2(a, b, c) for(int a=b;a&gt;=c;a--)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> loop3(a, b, c) for(int a=b;a&lt;c;a++)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> loop4(a, b, c) for(int a=b;a&gt;c;a--)</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxn 150</span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">define</span> maxm 20</span></span><br><span class="line"><span class="keyword">int</span> n, m, t;</span><br><span class="line"><span class="keyword">int</span> matrix[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> ans = infinitesimal;</span><br><span class="line"><span class="keyword">int</span> temp[maxn];</span><br><span class="line"><span class="keyword">int</span> dp[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Arrsum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    mset(dp, <span class="number">0</span>);</span><br><span class="line">    loop(i, <span class="number">1</span>, n) &#123;</span><br><span class="line">        dp[i] = <span class="built_in">max</span>(dp[i], dp[i - <span class="number">1</span>] + temp[i]);</span><br><span class="line">        ans = <span class="built_in">max</span>(ans, dp[i]);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">MatrixSum</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    loop(i, <span class="number">1</span>, n) &#123;</span><br><span class="line">        mset(temp, <span class="number">0</span>);</span><br><span class="line">        loop(j, i, n) &#123;</span><br><span class="line">            loop(k, <span class="number">1</span>, n) &#123;</span><br><span class="line">                temp[k] += matrix[j][k];</span><br><span class="line">            &#125;</span><br><span class="line">            Arrsum();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;n);</span><br><span class="line">    loop(i, <span class="number">1</span>, n) &#123;</span><br><span class="line">        loop(j, <span class="number">1</span>, n) &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;matrix[i][j]);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    MatrixSum();</span><br><span class="line">    <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, ans);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../../tags/%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86/" rel="tag"># 前缀和与差分</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../%E5%9C%B0%E6%AF%AF%EF%BC%88%E5%89%8D%E7%BC%80%E5%92%8C%E4%B8%8E%E5%B7%AE%E5%88%86%EF%BC%89/" rel="next" title="地毯（前缀和与差分）">
+                <i class="fa fa-chevron-left"></i> 地毯（前缀和与差分）
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../%E6%9C%80%E5%A4%A7%E5%AD%90%E6%AE%B5%E5%92%8C%EF%BC%88%E5%89%8D%E7%BC%80%E5%92%8C%EF%BC%89/" rel="prev" title="最大子段和（前缀和）">
+                最大子段和（前缀和） <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">SXY</p>
+              <p class="site-description motion-element" itemprop="description">hh</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="../../../../../archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#题目："><span class="nav-number">1.</span> <span class="nav-text">题目：</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#解题报告："><span class="nav-number">2.</span> <span class="nav-text">解题报告：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#my-二维前缀和的做法："><span class="nav-number">2.1.</span> <span class="nav-text">my 二维前缀和的做法：</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#奇技淫巧式做法："><span class="nav-number">3.</span> <span class="nav-text">奇技淫巧式做法：</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#代码："><span class="nav-number">3.1.</span> <span class="nav-text">代码：</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SXY</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../../js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="../../../../../js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="../../../../../js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../../js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

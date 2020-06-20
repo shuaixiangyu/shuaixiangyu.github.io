@@ -1,0 +1,716 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-CN">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="../../../../../lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="../../../../../lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="../../../../../css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="../../../../../images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="../../../../../images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="../../../../../images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="../../../../../images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="线段树," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="线段树线段树是一种二叉搜索树，主要是为了储存和查询信息 这篇博客讲得挺详细的：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;TheRoadToTheGold&#x2F;p&#x2F;6254255.html 主要操作 建树 查询某个点的值 修改某个点的值 查询某个区间的值 修改某个区间的值（对一整个区间上所有元素加或减同一个数）  对几种主要操作的代码实现123456789101112131415161718192">
+<meta property="og:type" content="article">
+<meta property="og:title" content="线段树概述">
+<meta property="og:url" content="http://yoursite.com/2020/06/20/%E7%BA%BF%E6%AE%B5%E6%A0%91/%E7%BA%BF%E6%AE%B5%E6%A0%91%E6%A6%82%E8%BF%B0/index.html">
+<meta property="og:site_name" content="SXY&#39;s blog">
+<meta property="og:description" content="线段树线段树是一种二叉搜索树，主要是为了储存和查询信息 这篇博客讲得挺详细的：https:&#x2F;&#x2F;www.cnblogs.com&#x2F;TheRoadToTheGold&#x2F;p&#x2F;6254255.html 主要操作 建树 查询某个点的值 修改某个点的值 查询某个区间的值 修改某个区间的值（对一整个区间上所有元素加或减同一个数）  对几种主要操作的代码实现123456789101112131415161718192">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-06-20T05:03:13.321Z">
+<meta property="article:modified_time" content="2020-06-18T03:19:01.246Z">
+<meta property="article:author" content="SXY">
+<meta property="article:tag" content="线段树">
+<meta name="twitter:card" content="summary">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: 'Author'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/20/线段树/线段树概述/"/>
+
+
+
+
+
+  <title>线段树概述 | SXY's blog</title>
+  
+
+
+
+
+
+
+
+
+<meta name="generator" content="Hexo 4.2.1"></head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">SXY's blog</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            Home
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="%20" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            Archives
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="SXY">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="../../../../../images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SXY's blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">线段树概述</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">Posted on</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2020-06-20T13:03:13+08:00">
+                2020-06-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">In</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="../../../../../categories/%E7%BA%BF%E6%AE%B5%E6%A0%91/" itemprop="url" rel="index">
+                    <span itemprop="name">线段树</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="线段树"><a href="#线段树" class="headerlink" title="线段树"></a>线段树</h4><p>线段树是一种二叉搜索树，主要是为了储存和查询信息</p>
+<p>这篇博客讲得挺详细的：<a href="https://www.cnblogs.com/TheRoadToTheGold/p/6254255.html" target="_blank" rel="noopener">https://www.cnblogs.com/TheRoadToTheGold/p/6254255.html</a></p>
+<h4 id="主要操作"><a href="#主要操作" class="headerlink" title="主要操作"></a>主要操作</h4><ul>
+<li>建树</li>
+<li>查询某个点的值</li>
+<li>修改某个点的值</li>
+<li>查询某个区间的值</li>
+<li>修改某个区间的值（对一整个区间上所有元素加或减同一个数）</li>
+</ul>
+<h4 id="对几种主要操作的代码实现"><a href="#对几种主要操作的代码实现" class="headerlink" title="对几种主要操作的代码实现"></a>对几种主要操作的代码实现</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">666</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">tree</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">	<span class="keyword">int</span> l;</span><br><span class="line">	<span class="keyword">int</span> r;</span><br><span class="line">	<span class="keyword">int</span> f;</span><br><span class="line">	<span class="keyword">int</span> sum;</span><br><span class="line">&#125;tree[maxn * <span class="number">4</span> + <span class="number">1</span>];</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//建树操作</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">buildTree</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> l, <span class="keyword">int</span> r)</span> <span class="comment">//区间的范围是l~r, 树的编号是K</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	tree[k].l = l;  </span><br><span class="line">	tree[k].r = r;</span><br><span class="line">	<span class="keyword">if</span>(l == r) <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;tree[k].sum);  <span class="comment">//当l==r时，说明这一段已经成一个点了，也就是叶节点</span></span><br><span class="line">	<span class="keyword">int</span> mid = (l + r) / <span class="number">2</span>;</span><br><span class="line">	buildTree(l, mid, <span class="number">2</span> * k);</span><br><span class="line">	buildTree(mid + <span class="number">1</span>, r, <span class="number">2</span> * k + <span class="number">1</span>);</span><br><span class="line">	tree[k].sum = tree[<span class="number">2</span> * k].sum + tree[<span class="number">2</span> * k + <span class="number">1</span>].sum;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询某点的值的操作,设待查询的点为x</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">searchPoint</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> x)</span>  <span class="comment">//一开始的k是根节点</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(tree[k].l == tree[k].r) <span class="keyword">return</span> tree[k].sum;</span><br><span class="line">	<span class="keyword">int</span> mid = (tree[k].l + tree[k].r) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(x &lt;= mid) searchPoint(k * <span class="number">2</span>, x);</span><br><span class="line">	<span class="keyword">else</span> searchPoint(k * <span class="number">2</span> + <span class="number">1</span>, x);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//更改某点的值（只是在查询操作的基础上做了两个改动）</span></span><br><span class="line"><span class="comment">//将x点上的值改为y</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updatePoint</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> x, <span class="keyword">int</span> delta)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(tree[k].l == tree[k].r) </span><br><span class="line">	&#123;</span><br><span class="line">		tree[k].sum += delta;  <span class="comment">//这里有改动</span></span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">int</span> mid = (tree[k].l + tree[k].r) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(x &lt;= mid) updatePoint(k * <span class="number">2</span>, x, delta);</span><br><span class="line">	<span class="keyword">else</span> updatePoint(k * <span class="number">2</span> + <span class="number">1</span>, x, delta);</span><br><span class="line">	tree[k].sum = tree[k*<span class="number">2</span>].sum + tree[k*<span class="number">2</span>+<span class="number">1</span>].sum;  <span class="comment">//新增一条语句用于更新父结点的值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//查询某区间的值</span></span><br><span class="line"><span class="comment">//x, y分别为区间的左端点、右端点, ans为区间的值</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">searchInterval</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> x, <span class="keyword">int</span> y)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(tree[k].l &gt;= x &amp;&amp; tree[k].r &lt;= y)  <span class="comment">//该区间完全被包含在查询区域中</span></span><br><span class="line">		<span class="keyword">return</span> tree[k].sum;</span><br><span class="line">	<span class="keyword">else</span> <span class="keyword">if</span>(x &gt; tree[k].r || y &lt; tree[k].l) </span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> ans = <span class="number">0</span>;</span><br><span class="line">	<span class="keyword">int</span> mid = (tree[k].l + tree[k].r) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(x  &lt;= mid) ans += searchInterval(k * <span class="number">2</span>, x, y);</span><br><span class="line">	<span class="keyword">if</span>(y &gt; mid) ans += searchInterval(k * <span class="number">2</span> + <span class="number">1</span>, x, y);</span><br><span class="line">	<span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//修改某区间上的值</span></span><br><span class="line"><span class="comment">//（1）懒标记下传 [当前结点的懒标记的值储存在父结点（防止重复储存）]</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">pushDown</span><span class="params">(<span class="keyword">int</span> k)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	tree[k*<span class="number">2</span>].f += tree[k].f;</span><br><span class="line">	tree[k*<span class="number">2</span>+<span class="number">1</span>].f += tree[k].f;</span><br><span class="line">	tree[k*<span class="number">2</span>].sum += tree[k].f * (tree[k*<span class="number">2</span>].r - tree[k*<span class="number">2</span>].l + <span class="number">1</span>);</span><br><span class="line">	tree[k*<span class="number">2</span>+<span class="number">1</span>].sum += tree[k].f * (tree[k*<span class="number">2</span>+<span class="number">1</span>].r - tree[k*<span class="number">2</span>+<span class="number">1</span>].l + <span class="number">1</span>);</span><br><span class="line">	tree[k].f = <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//(2)进行修改，对目标区间[x,y]里面的每一个元素都加</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">updateInterval</span><span class="params">(<span class="keyword">int</span> k, <span class="keyword">int</span> x, <span class="keyword">int</span> y, <span class="keyword">int</span> delta)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(tree[k].l &gt;= x &amp;&amp; tree[k].r &lt;= y)</span><br><span class="line">	&#123;</span><br><span class="line">		tree[k].sum += (tree[k].r - tree[k].l + <span class="number">1</span>) * delta;</span><br><span class="line">		tree[k].f += delta;</span><br><span class="line">		<span class="keyword">return</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">if</span>(tree[k].f) pushDown(k);</span><br><span class="line">	<span class="keyword">int</span> mid = (tree[k].l + tree[k].r) / <span class="number">2</span>;</span><br><span class="line">	<span class="keyword">if</span>(mid &gt;= x) updateInterval(k*<span class="number">2</span>, x, y, delta);</span><br><span class="line">	<span class="keyword">if</span>(mid &lt;= y) updateInterval(k*<span class="number">2</span>+<span class="number">1</span>, x, y, delta);</span><br><span class="line">	tree[k].sum = tree[k*<span class="number">2</span>].sum + tree[k*<span class="number">2</span>+<span class="number">1</span>].sum;</span><br><span class="line">&#125;	</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> k = <span class="number">0</span>, l = <span class="number">0</span>, r = <span class="number">9</span>;</span><br><span class="line">    <span class="keyword">int</span> x = <span class="number">1</span>, y = <span class="number">6</span>, delta = <span class="number">1</span>;</span><br><span class="line">	buildTree(k, l, r); <span class="comment">//建树</span></span><br><span class="line">	searchPoint(k, x);  <span class="comment">//查询点的值</span></span><br><span class="line">	updatePoint(k, x, delta);  <span class="comment">//更改点的值</span></span><br><span class="line">	searchInterval(k, x, y);  <span class="comment">//查询区间的值</span></span><br><span class="line">	updateInterval(k, x, y, delta);  <span class="comment">//更改区间的值</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="../../../../../tags/%E7%BA%BF%E6%AE%B5%E6%A0%91/" rel="tag"># 线段树</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="../%E6%95%8C%E5%85%B5%E5%B8%83%E9%98%B5%E3%80%90HDU%201166%E3%80%91/" rel="next" title="敌兵布阵（线段树模板题）[HDU1166]">
+                <i class="fa fa-chevron-left"></i> 敌兵布阵（线段树模板题）[HDU1166]
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="../../%E9%85%8D%E7%BD%AE%E5%BF%83%E5%BE%97/%E4%BD%BF%E7%94%A8Latex%E2%80%94%E2%80%94%E9%85%8D%E7%BD%AETexLive-+-VsCode/" rel="prev" title="使用Latex——配置TexLive + VsCode">
+                使用Latex——配置TexLive + VsCode <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            Table of Contents
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            Overview
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">SXY</p>
+              <p class="site-description motion-element" itemprop="description">hh</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="../../../../../archives/%20%7C%7C%20archive">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">posts</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">categories</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                
+                  <span class="site-state-item-count">11</span>
+                  <span class="site-state-item-name">tags</span>
+                
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#线段树"><span class="nav-number">1.</span> <span class="nav-text">线段树</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#主要操作"><span class="nav-number">2.</span> <span class="nav-text">主要操作</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#对几种主要操作的代码实现"><span class="nav-number">3.</span> <span class="nav-text">对几种主要操作的代码实现</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">SXY</span>
+
+  
+</div>
+
+
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="../../../../../lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../../js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="../../../../../js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="../../../../../js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="../../../../../js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="../../../../../js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
