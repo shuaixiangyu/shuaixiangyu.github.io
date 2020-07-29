@@ -1597,7 +1597,8 @@ $ hexo server</code></p>
   <entry>
     <title>transport layer</title>
     <url>/2020/07/20/computer%20networking/transport-layer/</url>
-    <content><![CDATA[<h1 id="transport-layer在协议栈数据传输中起到的作用"><a href="#transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="transport layer在协议栈数据传输中起到的作用"></a>transport layer在协议栈数据传输中起到的作用</h1><h1 id="一、transport-layer在协议栈数据传输中起到的作用"><a href="#一、transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="一、transport layer在协议栈数据传输中起到的作用"></a>一、transport layer在协议栈数据传输中起到的作用</h1><p>对于sender, 接受从application layer（应用层）传来的message。通常将一个message分成若干个chunks，给每一个chunk附加一个transport-layer header封装成segment传给端系统的network layer（网络层）。</p>
+    <content><![CDATA[<p>[toc]</p>
+<h1 id="一、transport-layer在协议栈数据传输中起到的作用"><a href="#一、transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="一、transport layer在协议栈数据传输中起到的作用"></a>一、transport layer在协议栈数据传输中起到的作用</h1><p>对于sender, 接受从application layer（应用层）传来的message。通常将一个message分成若干个chunks，给每一个chunk附加一个transport-layer header封装成segment传给端系统的network layer（网络层）。</p>
 <p>Transport-layer protocol provides logical communication，是一种逻辑模型，不涉及物理传输，且提供的是不同hosts（主机）间的processes（进程）逻辑通信。同样作为logical communication，network-layer provides hosts（主机）间的逻辑通信，示意图如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A(processe A)--&gt;|transport-layer|B(host A)</span><br><span class="line">B--&gt;|network-layer|C(...)</span><br><span class="line">C--&gt;|network-layer|D(host B)</span><br><span class="line">D--&gt;|transport-layer| E(processs B)</span><br></pre></td></tr></table></figure>
 
@@ -1671,5 +1672,11 @@ $ hexo server</code></p>
 <p><img src="https://s1.ax1x.com/2020/07/29/amYmy6.png" alt=""></p>
 <p>可以看出，这个版本唯一改变的地方就是省去了NCK，当sender连续收到两次相同sequence number的ACK就代表需要retransmission了，所以说这是一个NCK-free version</p>
 <h2 id="Model3-Reliable-Data-Transfer-over-a-Lossy-Channel-with-Bit-Errors"><a href="#Model3-Reliable-Data-Transfer-over-a-Lossy-Channel-with-Bit-Errors" class="headerlink" title="Model3: Reliable Data Transfer over a Lossy Channel with Bit Errors"></a>Model3: Reliable Data Transfer over <em>a Lossy Channel with Bit Errors</em></h2>]]></content>
+      <categories>
+        <category>网络</category>
+      </categories>
+      <tags>
+        <tag>网络</tag>
+      </tags>
   </entry>
 </search>
