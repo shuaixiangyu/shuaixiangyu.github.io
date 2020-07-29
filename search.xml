@@ -1597,18 +1597,18 @@ $ hexo server</code></p>
   <entry>
     <title>transport layer</title>
     <url>/2020/07/20/computer%20networking/transport-layer/</url>
-    <content><![CDATA[<h1 id="transport-layer在协议栈数据传输中起到的作用"><a href="#transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="transport layer在协议栈数据传输中起到的作用"></a>transport layer在协议栈数据传输中起到的作用</h1><p>对于sender, 接受从application layer（应用层）传来的message。通常将一个message分成若干个chunks，给每一个chunk附加一个transport-layer header封装成segment传给端系统的network layer（网络层）。</p>
+    <content><![CDATA[<h1 id="transport-layer在协议栈数据传输中起到的作用"><a href="#transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="transport layer在协议栈数据传输中起到的作用"></a>transport layer在协议栈数据传输中起到的作用</h1><h1 id="一、transport-layer在协议栈数据传输中起到的作用"><a href="#一、transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="一、transport layer在协议栈数据传输中起到的作用"></a>一、transport layer在协议栈数据传输中起到的作用</h1><p>对于sender, 接受从application layer（应用层）传来的message。通常将一个message分成若干个chunks，给每一个chunk附加一个transport-layer header封装成segment传给端系统的network layer（网络层）。</p>
 <p>Transport-layer protocol provides logical communication，是一种逻辑模型，不涉及物理传输，且提供的是不同hosts（主机）间的processes（进程）逻辑通信。同样作为logical communication，network-layer provides hosts（主机）间的逻辑通信，示意图如下：</p>
 <figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A(processe A)--&gt;|transport-layer|B(host A)</span><br><span class="line">B--&gt;|network-layer|C(...)</span><br><span class="line">C--&gt;|network-layer|D(host B)</span><br><span class="line">D--&gt;|transport-layer| E(processs B)</span><br></pre></td></tr></table></figure>
 
 
 
-<h1 id="Multiplexing-and-Demultiplexing-多路复用和多路分解"><a href="#Multiplexing-and-Demultiplexing-多路复用和多路分解" class="headerlink" title="Multiplexing and Demultiplexing(多路复用和多路分解)"></a>Multiplexing and Demultiplexing(多路复用和多路分解)</h1><ul>
+<h1 id="二、Multiplexing-and-Demultiplexing-多路复用和多路分解"><a href="#二、Multiplexing-and-Demultiplexing-多路复用和多路分解" class="headerlink" title="二、Multiplexing and Demultiplexing(多路复用和多路分解)"></a>二、Multiplexing and Demultiplexing(多路复用和多路分解)</h1><ul>
 <li>Multiplexing: 对于sender，收集来自不同socket（套接字）的data chunk（数据块），给每个data chunk附加上header information成为segment并将segment传到network-layer。</li>
 <li>Demultiplexing: 对于receiver，解析network layer传来的datagram中有关socket的信息，找到相应的socket将解析出来的segment传到该socket。（Each socket in the host could be assigned a port number, and when a segment arrives at the host, the transport layer examines the destination port number in the segment and directs the segment to the corresponding socket.)</li>
 </ul>
 <p>现在的高性能Web服务器一般不会一个socket对应一个process，而是只存在一个process，给每一个新连接对应的socket另外开一个线程（可以视为subprocess）</p>
-<h1 id="UDP（User-Datagram-Protocol）"><a href="#UDP（User-Datagram-Protocol）" class="headerlink" title="UDP（User Datagram Protocol）"></a>UDP（User Datagram Protocol）</h1><p>UDP与TCP相比是一种提供服务更少，但是更快更轻量的运输层协议，它适用于具备以下这几种特点的应用：</p>
+<h1 id="三、UDP（User-Datagram-Protocol）"><a href="#三、UDP（User-Datagram-Protocol）" class="headerlink" title="三、UDP（User Datagram Protocol）"></a>三、UDP（User Datagram Protocol）</h1><p>UDP与TCP相比是一种提供服务更少，但是更快更轻量的运输层协议，它适用于具备以下这几种特点的应用：</p>
 <ul>
 <li><p>Finer application-level control over what data is sent, and when</p>
 <p>UDP不保证数据传输的可靠性，但也因此获得了更高的传输速度，如果应用需要对数据传输有附加要求需要在应用层实现。</p>
@@ -1626,6 +1626,50 @@ $ hexo server</code></p>
 </li>
 </ul>
 <p>此外，虽然TCP提供的congestion control mechanism处于对整个网络状态的考虑尽量使所有application能均分流量，但限制了某些对于延时要求较高的real-time应用，这些应用可以利用UDP来绕过TCP的防拥堵机制，可是当UDP的丢包率也较高的时候同样会把TCP会话挤崩溃，最后得到结果是网络状态越来越糟糕。</p>
-]]></content>
+<h2 id="UDP-Segment-Structure-UDP报文段结构"><a href="#UDP-Segment-Structure-UDP报文段结构" class="headerlink" title="UDP Segment Structure (UDP报文段结构)"></a>UDP Segment Structure (UDP报文段结构)</h2><p><img src="https://s1.ax1x.com/2020/07/27/aiec36.jpg" alt=""></p>
+<ul>
+<li>UDP header has only four fields, each consists of two bytes.</li>
+</ul>
+<h3 id="Length"><a href="#Length" class="headerlink" title="Length"></a>Length</h3><p>The length field specifies the number of bytes in the UDP segment(header plus data). An explicit length value is needed since the size of the data fha’yihayicield may differ from one UDP segment to the next.</p>
+<p>(因为每个UDP报文段的总长度因为data field的不同可能会有差异，需要用length field显式表明该segment的长度)</p>
+<h3 id="Checksum-检验和"><a href="#Checksum-检验和" class="headerlink" title="Checksum(检验和)"></a>Checksum(检验和)</h3><ul>
+<li>The UDP checksum provides for error detection.  That is the checksum is used to determine whether bits within the UDP segment have been changed.</li>
+</ul>
+<p>原理：</p>
+<p>在sender方：把segment里面所有的16-bit words相加，有溢出加到尾部，然后将所得的和取反就是检验和</p>
+<p>在receiver方：检验Checksum和所有16-bit words的和是否是1，如果任何一位bit出现零则error occurs</p>
+<h1 id="四、Principles-of-Reliable-Data-Transfer"><a href="#四、Principles-of-Reliable-Data-Transfer" class="headerlink" title="四、Principles of Reliable Data Transfer"></a>四、Principles of Reliable Data Transfer</h1><h2 id="Model1-Reliable-Data-Transfer-over-a-Perfectly-Reliable-Channel"><a href="#Model1-Reliable-Data-Transfer-over-a-Perfectly-Reliable-Channel" class="headerlink" title="Model1: Reliable Data Transfer over a Perfectly Reliable Channel"></a>Model1: Reliable Data Transfer over a <em>Perfectly Reliable Channel</em></h2><img src="https://s1.ax1x.com/2020/07/27/ail6dU.jpg"  />
+
+<p>这个理想化模型建立在数据在传输过程中没有corrupted且in order.</p>
+<h2 id="Model2-Reliable-Data-Transfer-over-a-Channel-with-Bit-Errors"><a href="#Model2-Reliable-Data-Transfer-over-a-Channel-with-Bit-Errors" class="headerlink" title="Model2: Reliable Data Transfer over a Channel with Bit Errors:"></a>Model2: Reliable Data Transfer over a <em>Channel with Bit Errors</em>:</h2><h3 id="Basic-Edition-2-1"><a href="#Basic-Edition-2-1" class="headerlink" title="Basic Edition(2.1)"></a>Basic Edition(2.1)</h3><img src="https://s1.ax1x.com/2020/07/29/amK8W8.png"  />
+
+
+
+<p><em>(图片注释：①sndpkt:packet ready to be sent  ②udt:unreliable data transport)</em></p>
+<p>这个模型建立在传输通路可能会使得data corrupts的前提下，且提供了纠错机制。</p>
+<p>该纠错机制由三个部分组成：</p>
+<ul>
+<li>Error detection(错误探测)：利用checksum(检验和)，receiver探测自己接收到的data是否被损坏</li>
+<li>Receiver feedback(反馈信息)：如果data没有corrupted，则receiver返回给sender一个ACK(positive acknowledgments)segment；反之，则返回一个NCK(negtive acknowledgments)segment</li>
+<li>Retransmission(重新发送)：如果sender接收到的feedback是NCK，那么就会重新传一次之前的segment</li>
+</ul>
+<p>这个protocol也因为它的ACK/NCK反馈机制而得名为ARQ(Automatic Repeat reQuest) protocol</p>
+<h3 id="Enhanced-Edition-2-2"><a href="#Enhanced-Edition-2-2" class="headerlink" title="Enhanced Edition(2.2)"></a>Enhanced Edition(2.2)</h3><p>ARQ还有一个enhancement version，基于data/ACK/NCK都有可能发生重传，而sender/receiver并不知道自己接收到的segment是一个new packet还是retransmission，所以引入了sequence number来区分不同的segment。且因为引入了sequence number可以控制packet是in order的<img src="https://s1.ax1x.com/2020/07/29/am3i80.png" alt=""></p>
+<p>可以看到，sender方跟基础model不同之处有：</p>
+<ul>
+<li>sndpkt中不仅有data, checksum, 还多了sequence number</li>
+<li>当sender接收到corrupted feedback或NCK时，会进行retransmission</li>
+</ul>
+<p><img src="https://s1.ax1x.com/2020/07/29/am8DYR.png" alt=""></p>
+<p>对于receiver方：</p>
+<ul>
+<li>当收到的packet是corrupted会返回一个NCK</li>
+<li>当收到的packet的sequence number是unexpected(即packets out of order)，receiver会返回一个ACK且继续等待想要的sequence number</li>
+</ul>
+<h3 id="Better-enhanced-Edition-2-3"><a href="#Better-enhanced-Edition-2-3" class="headerlink" title="Better-enhanced Edition(2.3)"></a>Better-enhanced Edition(2.3)</h3><p>再看一个基于升级版的升级版：</p>
+<p><img src="https://s1.ax1x.com/2020/07/29/amYio4.png" alt=""></p>
+<p><img src="https://s1.ax1x.com/2020/07/29/amYmy6.png" alt=""></p>
+<p>可以看出，这个版本唯一改变的地方就是省去了NCK，当sender连续收到两次相同sequence number的ACK就代表需要retransmission了，所以说这是一个NCK-free version</p>
+<h2 id="Model3-Reliable-Data-Transfer-over-a-Lossy-Channel-with-Bit-Errors"><a href="#Model3-Reliable-Data-Transfer-over-a-Lossy-Channel-with-Bit-Errors" class="headerlink" title="Model3: Reliable Data Transfer over a Lossy Channel with Bit Errors"></a>Model3: Reliable Data Transfer over <em>a Lossy Channel with Bit Errors</em></h2>]]></content>
   </entry>
 </search>
