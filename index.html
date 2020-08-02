@@ -191,6 +191,179 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/02/%E5%B9%B6%E6%9F%A5%E9%9B%86/How-Many-Answers-Are-Wrong(HDU-3038)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/baby1.jpg">
+      <meta itemprop="name" content="SXY">
+      <meta itemprop="description" content="hh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SXY's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/02/%E5%B9%B6%E6%9F%A5%E9%9B%86/How-Many-Answers-Are-Wrong(HDU-3038)/" class="post-title-link" itemprop="url">How Many Answers Are Wrong(HDU 3038)</a>
+        </h2>
+
+        <div class="post-meta">
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-02 15:04:04" itemprop="dateModified" datetime="2020-08-02T15:04:04+08:00">2020-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">并查集</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="How-Many-Answers-Are-Wrong"><a href="#How-Many-Answers-Are-Wrong" class="headerlink" title="How Many Answers Are Wrong"></a>How Many Answers Are Wrong</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 32768/32768 K (Java/Others)<br>Total Submission(s): 26506  Accepted Submission(s): 8937<br>**</strong></p>
+<h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><p>TT and FF are … friends. Uh… very very good friends -<strong>____</strong>-b</p>
+<p>FF is a bad boy, he is always wooing TT to play the following game with him. This is a very humdrum game. To begin with, TT should write down a sequence of integers-_-!!(bored).<br><img src="http://acm.hdu.edu.cn/data/images/exe3038-1.JPG" alt="img"><br>Then, FF can choose a continuous subsequence from it(for example the subsequence from the third to the fifth integer inclusively). After that, FF will ask TT what the sum of the subsequence he chose is. The next, TT will answer FF’s question. Then, FF can redo this process. In the end, FF must work out the entire sequence of integers.</p>
+<p>Boring<del>Boring</del>a very very boring game!!! TT doesn’t want to play with FF at all. To punish FF, she often tells FF the wrong answers on purpose.</p>
+<p>The bad boy is not a fool man. FF detects some answers are incompatible. Of course, these contradictions make it difficult to calculate the sequence.</p>
+<p>However, TT is a nice and lovely girl. She doesn’t have the heart to be hard on FF. To save time, she guarantees that the answers are all right if there is no logical mistakes indeed.</p>
+<p>What’s more, if FF finds an answer to be wrong, he will ignore it when judging next answers.</p>
+<p>But there will be so many questions that poor FF can’t make sure whether the current answer is right or wrong in a moment. So he decides to write a program to help him with this matter. The program will receive a series of questions from FF together with the answers FF has received from TT. The aim of this program is to find how many answers are wrong. Only by ignoring the wrong answers can FF work out the entire sequence of integers. Poor FF has no time to do this job. And now he is asking for your help<del>(Why asking trouble for himself</del>Bad boy)</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>Line 1: Two integers, N and M (1 &lt;= N &lt;= 200000, 1 &lt;= M &lt;= 40000). Means TT wrote N integers and FF asked her M questions.</p>
+<p>Line 2..M+1: Line i+1 contains three integer: Ai, Bi and Si. Means TT answered FF that the sum from Ai to Bi is Si. It’s guaranteed that 0 &lt; Ai &lt;= Bi &lt;= N.</p>
+<p>You can assume that any sum of subsequence is fit in 32-bit integer.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>A single line with a integer denotes how many answers are wrong.</p>
+<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">10 5</span><br><span class="line">1 10 100</span><br><span class="line">7 10 28</span><br><span class="line">1 3 32</span><br><span class="line">4 6 41</span><br><span class="line">6 6 1</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">2e6</span>+<span class="number">5</span>;</span><br><span class="line"><span class="keyword">int</span> father[maxn];</span><br><span class="line"><span class="keyword">int</span> val[maxn];</span><br><span class="line"><span class="keyword">int</span> n,m;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;=n; i++)</span><br><span class="line">	&#123;</span><br><span class="line">		father[i]=i;</span><br><span class="line">		val[i]=<span class="number">0</span>;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">findfa</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">if</span>(x==father[x]) <span class="keyword">return</span> x;</span><br><span class="line">	<span class="keyword">int</span> root=findfa(father[x]);</span><br><span class="line">	val[x]+=val[father[x]];</span><br><span class="line">	<span class="keyword">return</span> father[x]=root;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	<span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;n&gt;&gt;m)</span><br><span class="line">	&#123;</span><br><span class="line">		init();</span><br><span class="line">		<span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">while</span>(m--)</span><br><span class="line">		&#123;</span><br><span class="line">			<span class="keyword">int</span> a,b,c;</span><br><span class="line">			<span class="built_in">cin</span>&gt;&gt;a&gt;&gt;b&gt;&gt;c;</span><br><span class="line">			--a;</span><br><span class="line">			<span class="keyword">int</span> fa1=findfa(a);</span><br><span class="line">			<span class="keyword">int</span> fa2=findfa(b);</span><br><span class="line">			<span class="keyword">if</span>(fa1!=fa2)</span><br><span class="line">			&#123;</span><br><span class="line">				father[fa2]=fa1;</span><br><span class="line">				val[fa2]=val[a]+c-val[b];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> <span class="keyword">if</span>((val[b]-val[a])!=c) ++ans;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="built_in">cout</span>&lt;&lt;ans&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/08/02/%E5%B9%B6%E6%9F%A5%E9%9B%86/How-many-Tables(HDU-1213)/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/baby1.jpg">
+      <meta itemprop="name" content="SXY">
+      <meta itemprop="description" content="hh">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="SXY's blog">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/02/%E5%B9%B6%E6%9F%A5%E9%9B%86/How-many-Tables(HDU-1213)/" class="post-title-link" itemprop="url">How many Tables(HDU 1213)</a>
+        </h2>
+
+        <div class="post-meta">
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-02 11:07:04" itemprop="dateModified" datetime="2020-08-02T11:07:04+08:00">2020-08-02</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B9%B6%E6%9F%A5%E9%9B%86/" itemprop="url" rel="index"><span itemprop="name">并查集</span></a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="How-Many-Tables"><a href="#How-Many-Tables" class="headerlink" title="How Many Tables"></a>How Many Tables</h1><p><strong><em>\</em>Time Limit: 2000/1000 MS (Java/Others)  Memory Limit: 65536/32768 K (Java/Others)<br>Total Submission(s): 64497  Accepted Submission(s): 32515<br>**</strong></p>
+<p><a href="http://acm.hdu.edu.cn/showproblem.php?pid=1213" target="_blank" rel="noopener">http://acm.hdu.edu.cn/showproblem.php?pid=1213</a></p>
+<h2 id="Problem-Description"><a href="#Problem-Description" class="headerlink" title="Problem Description"></a>Problem Description</h2><p>Today is Ignatius’ birthday. He invites a lot of friends. Now it’s dinner time. Ignatius wants to know how many tables he needs at least. You have to notice that not all the friends know each other, and all the friends do not want to stay with strangers.</p>
+<p>One important rule for this problem is that if I tell you A knows B, and B knows C, that means A, B, C know each other, so they can stay in one table.</p>
+<p>For example: If I tell you A knows B, B knows C, and D knows E, so A, B, C can stay in one table, and D, E have to stay in the other one. So Ignatius needs 2 tables at least.</p>
+<h2 id="Input"><a href="#Input" class="headerlink" title="Input"></a>Input</h2><p>The input starts with an integer T(1&lt;=T&lt;=25) which indicate the number of test cases. Then T test cases follow. Each test case starts with two integers N and M(1&lt;=N,M&lt;=1000). N indicates the number of friends, the friends are marked from 1 to N. Then M lines follow. Each line consists of two integers A and B(A!=B), that means friend A and friend B know each other. There will be a blank line between two cases.</p>
+<h2 id="Output"><a href="#Output" class="headerlink" title="Output"></a>Output</h2><p>For each test case, just output how many tables Ignatius needs at least. Do NOT print any blanks.</p>
+<h2 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input"></a>Sample Input</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">5 3</span><br><span class="line">1 2</span><br><span class="line">2 3</span><br><span class="line">4 5</span><br><span class="line"></span><br><span class="line">5 1</span><br><span class="line">2 5</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<h2 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output"></a>Sample Output</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">2</span><br><span class="line">4</span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="Code"><a href="#Code" class="headerlink" title="Code"></a>Code</h2><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span><span class="meta-string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> MAX=<span class="number">1000</span>;</span><br><span class="line"><span class="keyword">int</span> father[MAX];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">init</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++) father[i]=i;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">FindFather</span><span class="params">(<span class="keyword">int</span> x)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">if</span>(father[x]==x) <span class="keyword">return</span> x;</span><br><span class="line">    <span class="keyword">return</span> father[x]=FindFather(father[x]);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">combine</span><span class="params">(<span class="keyword">int</span> a, <span class="keyword">int</span> b)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ra,rb;</span><br><span class="line">    ra = FindFather(a);</span><br><span class="line">    rb = FindFather(b);</span><br><span class="line">    <span class="keyword">if</span>(ra!=rb) father[ra]=rb;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">getans</span><span class="params">(<span class="keyword">int</span> n)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> ans=<span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=n; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span>(father[i]==i) ans++;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ans;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">int</span> T, n, m, a, b;</span><br><span class="line">    <span class="built_in">scanf</span>(<span class="string">"%d"</span>, &amp;T);</span><br><span class="line">    <span class="keyword">while</span>(T--)  <span class="comment">//T个cases</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;n, &amp;m);  <span class="comment">//人数，关系数</span></span><br><span class="line">        init(n);</span><br><span class="line">        <span class="keyword">while</span>(m--)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;a, &amp;b);  <span class="comment">//a和b有关系</span></span><br><span class="line">            combine(a, b);</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="built_in">printf</span>(<span class="string">"%d\n"</span>, getans(n));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/23/%E6%A8%A1%E6%8B%9F/Shufflem-Up(POJ-3087)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -840,251 +1013,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/22/%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98/Find-a-way(HDU-2612)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/baby1.jpg">
-      <meta itemprop="name" content="SXY">
-      <meta itemprop="description" content="hh">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SXY's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/22/%E6%90%9C%E7%B4%A2%E9%97%AE%E9%A2%98/Find-a-way(HDU-2612)/" class="post-title-link" itemprop="url">Find a way(HDU 2612)</a>
-        </h2>
-
-        <div class="post-meta">
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-22 19:30:57" itemprop="dateModified" datetime="2020-07-22T19:30:57+08:00">2020-07-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%90%9C%E7%B4%A2/" itemprop="url" rel="index"><span itemprop="name">搜索</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="Question"><a href="#Question" class="headerlink" title="Question:"></a><a href="https://vjudge.net/problem/HDU-2612" target="_blank" rel="noopener">Question</a>:</h4><p>Pass a year learning in Hangzhou, yifenfei arrival hometown Ningbo at finally. Leave Ningbo one year, yifenfei have many people to meet. Especially a good friend Merceki.<br>Yifenfei’s home is at the countryside, but Merceki’s home is in the center of city. So yifenfei made arrangements with Merceki to meet at a KFC. There are many KFC in Ningbo, they want to choose one that let the total time to it be most smallest.<br>Now give you a Ningbo map, Both yifenfei and Merceki can move up, down ,left, right to the adjacent road by cost 11 minutes.</p>
-<h4 id="Input"><a href="#Input" class="headerlink" title="Input:"></a>Input:</h4><p>The input contains multiple test cases.<br>Each test case include, first two integers n, m. (2&lt;=n,m&lt;=200).<br>Next n lines, each line included m character.<br>‘Y’ express yifenfei initial position.<br>‘M’   express Merceki initial position.<br>‘#’ forbid road;<br>‘.’ Road.<br>‘@’ KCF</p>
-<h4 id="Output"><a href="#Output" class="headerlink" title="Output:"></a>Output:</h4><p>For each test case output the minimum total time that both yifenfei and Merceki to arrival one of KFC.You may sure there is always have a KFC that can let them meet.</p>
-<h4 id="Sample-Input"><a href="#Sample-Input" class="headerlink" title="Sample Input:"></a>Sample Input:</h4><p>4 4<br>Y.#@<br>….<br>.#..<br>@..M<br>4 4<br>Y.#@<br>….<br>.#..<br>@#.M<br>5 5<br>Y..@.<br>.#…<br>.#…<br>@..M.<br>#…#</p>
-<h4 id="Sample-Output"><a href="#Sample-Output" class="headerlink" title="Sample Output:"></a>Sample Output:</h4><p>66<br>88<br>66</p>
-<h4 id="Solution"><a href="#Solution" class="headerlink" title="Solution:"></a>Solution:</h4><p>分别对M、Y两人进行bfs，开两个二维数组分别用来保存他们到图中所有点的最短时间，两次bfs之后遍历整个图，对于每个标记为@的点，计算他们两个到这个点的时间和，算出到其中一个@点的最短时间。</p>
-<h4 id="AC-codes"><a href="#AC-codes" class="headerlink" title="AC codes:"></a>AC codes:</h4><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;queue&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="meta-keyword">include</span> <span class="meta-string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> <span class="built_in">std</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn=<span class="number">205</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> INF=<span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">bool</span> usedy[maxn][maxn];</span><br><span class="line"><span class="keyword">bool</span> usedm[maxn][maxn];</span><br><span class="line"><span class="keyword">char</span> pos[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> timey[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> timem[maxn][maxn];</span><br><span class="line"><span class="keyword">int</span> ROW, COLUMN;</span><br><span class="line"><span class="keyword">int</span> startyc, startyr, startmc, startmr;</span><br><span class="line"><span class="keyword">int</span> dir[<span class="number">4</span>][<span class="number">2</span>]=&#123;&#123;<span class="number">1</span>,<span class="number">0</span>&#125;, &#123;<span class="number">-1</span>,<span class="number">0</span>&#125;, &#123;<span class="number">0</span>,<span class="number">1</span>&#125;, &#123;<span class="number">0</span>,<span class="number">-1</span>&#125;&#125;;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">NODE</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">    <span class="keyword">int</span> row;</span><br><span class="line">    <span class="keyword">int</span> column;</span><br><span class="line">    <span class="keyword">int</span> time;</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="built_in">queue</span>&lt;NODE&gt; q;</span><br><span class="line">    NODE node&#123;startyr, startyc,<span class="number">0</span>&#125;;</span><br><span class="line">    NODE re&#123;<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>&#125;;</span><br><span class="line">    q.push(node);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        node=q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            re=node;</span><br><span class="line">            re.row+=dir[i][<span class="number">1</span>];</span><br><span class="line">            re.column+=dir[i][<span class="number">0</span>];</span><br><span class="line">            re.time++;</span><br><span class="line">            <span class="keyword">if</span>(usedy[re.row][re.column]||pos[re.row][re.column]==<span class="string">'#'</span>||re.row&lt;<span class="number">0</span>||re.row&gt;=ROW||re.column&lt;<span class="number">0</span>||re.column&gt;=COLUMN)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                usedy[re.row][re.column]=<span class="literal">true</span>;</span><br><span class="line">                timey[re.row][re.column]=re.time;</span><br><span class="line">                q.push(re);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    node.row=startmr;</span><br><span class="line">    node.column=startmc;</span><br><span class="line">    node.time=<span class="number">0</span>;</span><br><span class="line">    q.push(node);</span><br><span class="line">    <span class="keyword">while</span>(!q.empty())</span><br><span class="line">    &#123;</span><br><span class="line">        node=q.front();</span><br><span class="line">        q.pop();</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;<span class="number">4</span>; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            re=node;</span><br><span class="line">            re.row+=dir[i][<span class="number">1</span>];</span><br><span class="line">            re.column+=dir[i][<span class="number">0</span>];</span><br><span class="line">            re.time++;</span><br><span class="line">            <span class="keyword">if</span>(usedm[re.row][re.column]||pos[re.row][re.column]==<span class="string">'#'</span>||re.row&lt;<span class="number">0</span>||re.row&gt;=ROW||re.column&lt;<span class="number">0</span>||re.column&gt;=COLUMN)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">continue</span>;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">            &#123;</span><br><span class="line">                usedm[re.row][re.column]=<span class="literal">true</span>;</span><br><span class="line">                timem[re.row][re.column]=re.time;</span><br><span class="line">                q.push(re);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">int</span> least=INF;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;ROW; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;COLUMN; j++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span>(pos[i][j]==<span class="string">'@'</span>)</span><br><span class="line">            &#123;</span><br><span class="line">                least=<span class="built_in">min</span>(least, timem[i][j]+timey[i][j]);</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">cout</span>&lt;&lt;least*<span class="number">11</span>&lt;&lt;<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="built_in">cin</span>&gt;&gt;ROW&gt;&gt;COLUMN)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">memset</span>(usedm, <span class="number">0</span>, <span class="keyword">sizeof</span>(usedm));</span><br><span class="line">        <span class="built_in">memset</span>(usedy, <span class="number">0</span>, <span class="keyword">sizeof</span>(usedy));</span><br><span class="line">        <span class="built_in">memset</span>(timem, INF, <span class="keyword">sizeof</span>(timem));</span><br><span class="line">        <span class="built_in">memset</span>(timey, INF, <span class="keyword">sizeof</span>(timey));</span><br><span class="line">        <span class="keyword">char</span> ch;</span><br><span class="line">        <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>; i&lt;ROW; i++)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>; j&lt;COLUMN; j++)</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="built_in">cin</span>&gt;&gt;ch;</span><br><span class="line">                pos[i][j]=ch;</span><br><span class="line">                <span class="keyword">if</span>(ch==<span class="string">'Y'</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    startyr=i;</span><br><span class="line">                    startyc=j;</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span> <span class="keyword">if</span>(ch==<span class="string">'M'</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    startmr=i;</span><br><span class="line">                    startmc=j;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="built_in">cin</span>.<span class="built_in">get</span>();</span><br><span class="line">        &#125;</span><br><span class="line">        usedm[startmr][startmc]=<span class="literal">true</span>;</span><br><span class="line">        usedm[startyr][startyc]=<span class="literal">true</span>;</span><br><span class="line">        bfs();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/07/20/computer%20networking/transport-layer/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/baby1.jpg">
-      <meta itemprop="name" content="SXY">
-      <meta itemprop="description" content="hh">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="SXY's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/20/computer%20networking/transport-layer/" class="post-title-link" itemprop="url">transport layer</a>
-        </h2>
-
-        <div class="post-meta">
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-07-30 11:32:56" itemprop="dateModified" datetime="2020-07-30T11:32:56+08:00">2020-07-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%BD%91%E7%BB%9C/" itemprop="url" rel="index"><span itemprop="name">网络</span></a>
-                </span>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>[toc]</p>
-<h1 id="一、transport-layer在协议栈数据传输中起到的作用"><a href="#一、transport-layer在协议栈数据传输中起到的作用" class="headerlink" title="一、transport layer在协议栈数据传输中起到的作用"></a>一、transport layer在协议栈数据传输中起到的作用</h1><p>对于sender, 接受从application layer（应用层）传来的message。通常将一个message分成若干个chunks，给每一个chunk附加一个transport-layer header封装成segment传给端系统的network layer（网络层）。</p>
-<p>Transport-layer protocol provides logical communication，是一种逻辑模型，不涉及物理传输，且提供的是不同hosts（主机）间的processes（进程）逻辑通信。同样作为logical communication，network-layer provides hosts（主机）间的逻辑通信，示意图如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">graph TD</span><br><span class="line">A(processe A)--&gt;|transport-layer|B(host A)</span><br><span class="line">B--&gt;|network-layer|C(...)</span><br><span class="line">C--&gt;|network-layer|D(host B)</span><br><span class="line">D--&gt;|transport-layer| E(processs B)</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="二、Multiplexing-and-Demultiplexing-多路复用和多路分解"><a href="#二、Multiplexing-and-Demultiplexing-多路复用和多路分解" class="headerlink" title="二、Multiplexing and Demultiplexing(多路复用和多路分解)"></a>二、Multiplexing and Demultiplexing(多路复用和多路分解)</h1><ul>
-<li>Multiplexing: 对于sender，收集来自不同socket（套接字）的data chunk（数据块），给每个data chunk附加上header information成为segment并将segment传到network-layer。</li>
-<li>Demultiplexing: 对于receiver，解析network layer传来的datagram中有关socket的信息，找到相应的socket将解析出来的segment传到该socket。（Each socket in the host could be assigned a port number, and when a segment arrives at the host, the transport layer examines the destination port number in the segment and directs the segment to the corresponding socket.)</li>
-</ul>
-<p>现在的高性能Web服务器一般不会一个socket对应一个process，而是只存在一个process，给每一个新连接对应的socket另外开一个线程（可以视为subprocess）</p>
-<h1 id="三、UDP（User-Datagram-Protocol）"><a href="#三、UDP（User-Datagram-Protocol）" class="headerlink" title="三、UDP（User Datagram Protocol）"></a>三、UDP（User Datagram Protocol）</h1><p>UDP与TCP相比是一种提供服务更少，但是更快更轻量的运输层协议，它适用于具备以下这几种特点的应用：</p>
-<ul>
-<li><p>Finer application-level control over what data is sent, and when</p>
-<p>UDP不保证数据传输的可靠性，但也因此获得了更高的传输速度，如果应用需要对数据传输有附加要求需要在应用层实现。</p>
-</li>
-<li><p>No connection establishment</p>
-<p>当传输速度的优先级大于数据传输可靠性的时候，UDP就成为了application的首选运输层协议，因为UDP省去了建立连接的时间，在clientsided只需要创建一个socket而TCP需要在clienntside建立两个socket。不同的application出于需求考量采用不同的协议，DNS需要低延时，所以采取UDP，HTTP需要保证网页是完整的，所以采取TCP。Google Chrome Brower采用的是QUIC protocol，它在application-layer实现你了数据可靠性传输。</p>
-<p>常见的application选择使用的运输层协议如下：</p>
-<p><img src="https://uniim1.shutterfly.com/ng/services/mediarender/THISLIFE/024041608357/media/1672700453257415/small/1595211898/enhance" alt=""></p>
-</li>
-<li><p>No connection state</p>
-<p>UDP不需要维持连接状态，因此可以支持更多的active clients</p>
-</li>
-<li><p>Small packet header overhead</p>
-<p>UDP的segment有8bytes的header而TCP的segment有20bytes的header，因为UDP不提供reliable data transer和congestion control mechanism、error recovery等服务，所以header里的参数就比较少，比起TCP更加轻量。</p>
-</li>
-</ul>
-<p>此外，虽然TCP提供的congestion control mechanism处于对整个网络状态的考虑尽量使所有application能均分流量，但限制了某些对于延时要求较高的real-time应用，这些应用可以利用UDP来绕过TCP的防拥堵机制，可是当UDP的丢包率也较高的时候同样会把TCP会话挤崩溃，最后得到结果是网络状态越来越糟糕。</p>
-<h2 id="UDP-Segment-Structure-UDP报文段结构"><a href="#UDP-Segment-Structure-UDP报文段结构" class="headerlink" title="UDP Segment Structure (UDP报文段结构)"></a>UDP Segment Structure (UDP报文段结构)</h2><p><img src="https://s1.ax1x.com/2020/07/27/aiec36.jpg" alt=""></p>
-<ul>
-<li>UDP header has only four fields, each consists of two bytes.</li>
-</ul>
-<h3 id="Length"><a href="#Length" class="headerlink" title="Length"></a>Length</h3><p>The length field specifies the number of bytes in the UDP segment(header plus data). An explicit length value is needed since the size of the data fha’yihayicield may differ from one UDP segment to the next.</p>
-<p>(因为每个UDP报文段的总长度因为data field的不同可能会有差异，需要用length field显式表明该segment的长度)</p>
-<h3 id="Checksum-检验和"><a href="#Checksum-检验和" class="headerlink" title="Checksum(检验和)"></a>Checksum(检验和)</h3><ul>
-<li>The UDP checksum provides for error detection.  That is the checksum is used to determine whether bits within the UDP segment have been changed.</li>
-</ul>
-<p>原理：</p>
-<p>在sender方：把segment里面所有的16-bit words相加，有溢出加到尾部，然后将所得的和取反就是检验和</p>
-<p>在receiver方：检验Checksum和所有16-bit words的和是否是1，如果任何一位bit出现零则error occurs</p>
-<h1 id="四、Principles-of-Reliable-Data-Transfer"><a href="#四、Principles-of-Reliable-Data-Transfer" class="headerlink" title="四、Principles of Reliable Data Transfer"></a>四、Principles of Reliable Data Transfer</h1><h2 id="Model1-Reliable-Data-Transfer-over-a-Perfectly-Reliable-Channel"><a href="#Model1-Reliable-Data-Transfer-over-a-Perfectly-Reliable-Channel" class="headerlink" title="Model1: Reliable Data Transfer over a Perfectly Reliable Channel"></a>Model1: Reliable Data Transfer over a <em>Perfectly Reliable Channel</em></h2><img src="https://s1.ax1x.com/2020/07/27/ail6dU.jpg"  />
-
-<p>这个理想化模型建立在数据在传输过程中没有corrupted且in order.</p>
-<h2 id="Model2-Reliable-Data-Transfer-over-a-Channel-with-Bit-Errors"><a href="#Model2-Reliable-Data-Transfer-over-a-Channel-with-Bit-Errors" class="headerlink" title="Model2: Reliable Data Transfer over a Channel with Bit Errors:"></a>Model2: Reliable Data Transfer over a <em>Channel with Bit Errors</em>:</h2><h3 id="Basic-Edition-2-1"><a href="#Basic-Edition-2-1" class="headerlink" title="Basic Edition(2.1)"></a>Basic Edition(2.1)</h3><img src="https://s1.ax1x.com/2020/07/29/amK8W8.png"  />
-
-
-
-<p><em>(图片注释：①sndpkt:packet ready to be sent  ②udt:unreliable data transport)</em></p>
-<p>这个模型建立在传输通路可能会使得data corrupts的前提下，且提供了纠错机制。</p>
-<p>该纠错机制由三个部分组成：</p>
-<ul>
-<li>Error detection(错误探测)：利用checksum(检验和)，receiver探测自己接收到的data是否被损坏</li>
-<li>Receiver feedback(反馈信息)：如果data没有corrupted，则receiver返回给sender一个ACK(positive acknowledgments)segment；反之，则返回一个NCK(negtive acknowledgments)segment</li>
-<li>Retransmission(重新发送)：如果sender接收到的feedback是NCK，那么就会重新传一次之前的segment</li>
-</ul>
-<p>这个protocol也因为它的ACK/NCK反馈机制而得名为ARQ(Automatic Repeat reQuest) protocol</p>
-<h3 id="Enhanced-Edition-2-2"><a href="#Enhanced-Edition-2-2" class="headerlink" title="Enhanced Edition(2.2)"></a>Enhanced Edition(2.2)</h3><p>ARQ还有一个enhancement version，基于data/ACK/NCK都有可能发生重传，而sender/receiver并不知道自己接收到的segment是一个new packet还是retransmission，所以引入了sequence number来区分不同的segment。且因为引入了sequence number可以控制packet是in order的<img src="https://s1.ax1x.com/2020/07/29/am3i80.png" alt=""></p>
-<p>可以看到，sender方跟基础model不同之处有：</p>
-<ul>
-<li>sndpkt中不仅有data, checksum, 还多了sequence number</li>
-<li>当sender接收到corrupted feedback或NCK时，会进行retransmission</li>
-</ul>
-<p><img src="https://s1.ax1x.com/2020/07/29/am8DYR.png" alt=""></p>
-<p>对于receiver方：</p>
-<ul>
-<li>当收到的packet是corrupted会返回一个NCK</li>
-<li>当收到的packet的sequence number是unexpected(即packets out of order)，receiver会返回一个ACK且继续等待想要的sequence number</li>
-</ul>
-<h3 id="Better-enhanced-Edition-2-3"><a href="#Better-enhanced-Edition-2-3" class="headerlink" title="Better-enhanced Edition(2.3)"></a>Better-enhanced Edition(2.3)</h3><p>再看一个基于升级版的升级版：</p>
-<p><img src="https://s1.ax1x.com/2020/07/29/amYio4.png" alt=""></p>
-<p><img src="https://s1.ax1x.com/2020/07/29/amYmy6.png" alt=""></p>
-<p>可以看出，这个版本唯一改变的地方就是省去了NCK，当sender连续收到两次相同sequence number的ACK就代表需要retransmission了，所以说这是一个NCK-free version</p>
-<h2 id="Model3-Reliable-Data-Transfer-over-a-Lossy-Channel-with-Bit-Errors"><a href="#Model3-Reliable-Data-Transfer-over-a-Lossy-Channel-with-Bit-Errors" class="headerlink" title="Model3: Reliable Data Transfer over a Lossy Channel with Bit Errors"></a>Model3: Reliable Data Transfer over <em>a Lossy Channel with Bit Errors</em></h2><p>该模型不仅考虑了data出错，还考虑了丢包的情况</p>
-<p><img src="https://s1.ax1x.com/2020/07/30/anDTzD.png" alt=""></p>
-<p>​    如何判断是否丢包呢？这就引入了另一个mechanism——timer(计时器)，由sender来选择一个合适的倒计时，如果超过了这段时间(TimeInterval)还没有收到来自reveiver的ACK则进行retransmission且重启计时器<em>(注意：除了丢包外，网络延时也会触发这个机制，因为sender无法确切得知超时原因)</em></p>
-<p>​    在以上介绍的几种机制中，sequence number都只采取了0 or 1，只用1个bit来区分是前一个还是现在的segment，这样的protocol也被称作是<strong>alternating-bit protocol(比特交替协议)</strong>.</p>
-<p>​    下图介绍了alternating-bit-protocol面对不同情况的工作模式：</p>
-<ul>
-<li><p>正常工作(no bit error，no time out)</p>
-<p><img src="https://s1.ax1x.com/2020/07/30/ancpAs.png" alt=""></p>
-</li>
-<li><p>sender丢包(no bit error，time out lost packet)</p>
-<p><img src="https://s1.ax1x.com/2020/07/30/anc3jO.png" alt=""></p>
-</li>
-<li><p>receiver丢包(no bit error，time out lost ACK)</p>
-<p><img src="https://s1.ax1x.com/2020/07/30/ancR5n.png" alt=""></p>
-</li>
-<li><p>过早超时，sender选择的倒计时过短(no bit error, time out)</p>
-<p><img src="https://s1.ax1x.com/2020/07/30/angDiR.png" alt=""></p>
-</li>
-</ul>
-<h1 id="五、Pipelined-Reliable-Data-Transfer-Protocols"><a href="#五、Pipelined-Reliable-Data-Transfer-Protocols" class="headerlink" title="五、Pipelined Reliable Data Transfer Protocols"></a>五、Pipelined Reliable Data Transfer Protocols</h1><blockquote>
-<p>（四）中介绍的几种models在当今的high-speed network中并不能满足我们的需求，这几种models都是发送完一个segment后必须等到receiver返回ACK后才能进行下一个segment的传输，这种<strong>stop-and-wait(停等协议)</strong>的效率是十分低下的。因此，现在引入两种流水线模型，这种model会大大提高segment的传输效率。</p>
-</blockquote>
-<p><img src="https://s1.ax1x.com/2020/07/30/an2PyT.png" alt=""></p>
-<p><img src="https://s1.ax1x.com/2020/07/30/an2eYR.png" alt=""></p>
-<p><img src="https://s1.ax1x.com/2020/07/30/anRi9I.png" alt=""></p>
-<p><img src="https://s1.ax1x.com/2020/07/30/anRZDS.png" alt=""></p>
-<p><em>(如上图对比显示，pipelined作业传输效率明显上升)</em></p>
-<p>​    对于流水线packet transmission有以下和stop-and-wait protocols不同的几点：</p>
-<ul>
-<li>必须增加packet sequence number的范围(The range of sequence numbers must be increased)。由于流水线作业不停等且有多个packets连续传输，不能简单用0和1来区分前后两个packet，需要给每个packet allocate一个unique sequence number。</li>
-<li>分配合适大小的buffer(Allocate buffer properly)。流水线上receiver需要不断接受新分组，因此需要合适大小的buffer来存储这些到达的分组，以供application process读入。</li>
-<li>流水线对于错误数据恢复根据对sequence number range和buffer的要求不同，有<strong>Go-Back-N(GBN)</strong>和<strong>Selective Repeat(SR)</strong>两种机制</li>
-</ul>
-<h2 id="Go-Back-N-GBN-：后退N步"><a href="#Go-Back-N-GBN-：后退N步" class="headerlink" title="Go-Back-N(GBN)：后退N步"></a>Go-Back-N(GBN)：后退N步</h2>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1156,7 +1084,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">66</span>
+          <span class="site-state-item-count">68</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
